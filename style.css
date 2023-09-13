@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    @apply font-text bg-body dark:bg-dark-body text-base text-text dark:text-dark-text;
+}
+
+/* Input */
+
+.body-label {
+    @apply fixed h-full w-[calc(100%-288px)] -right-full top-0 z-30
+}
+
+#toggle:checked {
+    & ~ .sidenav {
+        @apply w-72 left-0 md:-left-full;
+        .menu {
+            @apply flex md:hidden
+        }
+    } 
+    & ~ .content {
+        @apply ml-0 sm:ml-72 md:ml-0;
+        .header {
+            @apply w-full left-0 sm:left-72 md:left-0;
+        }
+    }
+    & ~ .body-label {
+        @apply right-0;
+    }
+}
+
+/* Sidenav */
+
+.sidenav {
+    @apply fixed top-0 -left-full md:left-0 w-0 md:w-72 h-screen bg-sidenav bg-cover bg-center py-4 px-5 z-20 sm:z-30;
+    &::after {
+        @apply content-[""] absolute top-0 left-0 h-full w-full bg-dark-white -z-20 sm:-z-30 opacity-95;
+    }
+    transition: left 0.3s;
+}
+
+.menu {
+    @apply flex flex-col gap-y-8 h-full pt-4;
+    .menu-logo {
+        @apply flex items-center gap-x-6 px-4;
+        & span {
+            @apply font-title uppercase text-white font-semibold text-base tracking-wider;
+        }
+        & i {
+            @apply text-primary text-2xl font-normal;
+        }
+    }
+
+    .menu-content {
+        @apply relative overflow-y-hidden pt-8;
+        &::-webkit-scrollbar {
+            @apply hidden;
+        }
+        &::after {
+            @apply content-[""] absolute top-0 left-0 w-full h-[-1] bg-dark-border;
+        }
+    }
+
+    .menu-list {
+        @apply flex flex-col gap-y-1;
+    }
+
+    .menu-link {
+        @apply text-text grid grid-cols-max items-center gap-x-4 py-3 px-5 rounded cursor-pointer;
+        transition: background 0.3s;
+        & i {
+            @apply text-xl font-normal;
+        }
+        & span {
+            @apply font-text font-semibold;
+        }
+    }
+
+    :is(.menu-link:hover, .active) {
+        @apply bg-dark-body text-white;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        &::after {
+            @apply content-[""] absolute top-0 left-0 h-full w-full border-l-2 border-primary rounded-l
+        }
+    }
+}
+
+/* Header */
+
+.header {
+    @apply fixed top-0 left-0 md:left-72 h-full md:w-[calc(100%-288px)] h-14 flex items-center justify-between px-5 z-10 md:z-40 bg-dark-white transition-all duration-300;
+    .nav-toggle {
+        @apply text-xl cursor-pointer text-white;
+    }
+}
+
+/* Content */
+
+.content {
+    @apply ml-0 md:ml-72 pb-10;
+    transition: margin-left 0.3s;
+} 
